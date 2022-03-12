@@ -9,7 +9,7 @@ driver:
   name: docker
 platforms:
   - name: archlinux
-    image: "oscaromeu/docker-archlinux:latest"
+    image: "oscaromeu/docker-archlinux-ansible:latest"
     # command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
