@@ -10,11 +10,11 @@ driver:
 platforms:
   - name: archlinux
     image: "oscaromeu/docker-archlinux:latest"
-    #command: ${MOLECULE_DOCKER_COMMAND:-""}
+    # command: ${MOLECULE_DOCKER_COMMAND:-""}
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:ro
     tmpfs:
-      #- /tmp <= needs investigation
+      # - /tmp <= needs investigation
       - /run
       - /run/lock
     privileged: true

@@ -1,6 +1,5 @@
 ---
 # This is an example playbook to execute Ansible tests.
-
 - name: Verify
   hosts: all
   gather_facts: false
@@ -25,7 +24,7 @@
       command: "{{ kubectl_bin_path }} version --client"
       changed_when: false
       register: kubectl_verify_version
-      when: uninstall_tools|bool == false
+      when: not uninstall_tools
 
     - name: Verify Kubectl's version is {{ kubectl_version }}.
       assert:
