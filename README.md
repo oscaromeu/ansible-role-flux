@@ -4,7 +4,10 @@
 
 This role installs the following k8s utilities:
 - [Helm](https://helm.sh)
-- [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/) 
+- [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+- [Kustomize](https://kustomize.io/) <= TODO
+- [Flux V2](https://fluxcd.io/docs/cmd/) <= TODO
+- [K3d](https://k3d.io/v5.3.0/) <= TODO
 
 ## Requirements
 
