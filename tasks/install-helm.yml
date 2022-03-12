@@ -9,7 +9,7 @@
   file:
     path: "{{ helm_bin_path }}"
     state: absent
-  when: uninstall_tools|bool == true
+  when: uninstall_tools
 
 - name: Check if Helm binary exists.
   stat:
@@ -35,6 +35,5 @@
     mode: 0755
   notify: copy helm binary
   when: >
-    not helm_check.stat.exists
-    or helm_version not in helm_existing_version.stdout
-    and not uninstall_tools|default(false)
+    (not helm_check.stat.exists or helm_version not in helm_existing_version.stdout)
+    and not uninstall_tools

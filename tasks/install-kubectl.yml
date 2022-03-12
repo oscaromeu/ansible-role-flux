@@ -9,7 +9,7 @@
   file:
     path: "{{ kubectl_bin_path }}"
     state: absent
-  when: uninstall_tools|bool == true
+  when: uninstall_tools
 
 - name: Check if kubectl binary exists.
   stat:
@@ -29,16 +29,7 @@
 
 - name: Show detected arch
   debug: msg="{{ detected_arch }}"
-  ignore_errors: yes
-
-#- name: Download kubectl checksum
-#  get_url:
-#    url: "https://dl.k8s.io/release/v{{ kubectl_version }}/bin/{{ k8s_platform }}/{{ k8s_arch }}/kubectl.sha512"
-#    dest: /tmp/kubectl.sha512
-#    #set_fact: kubectl_checksum_binary= "{{ lookup('file', '/tmp/kubectl.sha256') }}"
-#  when: >
-#    (not kubectl_check.stat.exists or kubectl_version not in kubectl_existing_version.stdout)
-#    and uninstall_tools|bool == false
+  failed_when: false
 
 - name: Download kubectl binary
   get_url:
@@ -47,5 +38,5 @@
     dest: /tmp
   when: >
     (not kubectl_check.stat.exists or kubectl_version not in kubectl_existing_version.stdout)
-    and uninstall_tools|bool == false
+    and uninstall_tools
   notify: copy kubectl binary
