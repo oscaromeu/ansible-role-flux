@@ -25,7 +25,7 @@ k8s_platform: linux
 k8s_arch: amd64
 ```
 
-By default the architecture is `linux` and the `architecture` is `arm64`. Its not necessary to modify the `k8s_arch` variable because before installing the role checks the architecture of the platform and the variable is configured accordingly. 
+By default the platform is `linux` and the `architecture` is `arm64`. These variables are checked and configured at runtime by the role so its not necessary to adjust them.
 
 ```yml
 helm_version: 'v3.2.1'
