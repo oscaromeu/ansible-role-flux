@@ -31,14 +31,14 @@
   debug: msg="{{ detected_arch }}"
   ignore_errors: yes
 
-- name: Download kubectl checksum
-  get_url:
-    url: "https://dl.k8s.io/release/v{{ kubectl_version }}/bin/{{ k8s_platform }}/{{ k8s_arch }}/kubectl.sha512"
-    dest: /tmp/kubectl.sha512
-#    set_fact: kubectl_checksum_binary= "{{ lookup('file', '/tmp/kubectl.sha256') }}"
-  when: >
-    (not kubectl_check.stat.exists or kubectl_version not in kubectl_existing_version.stdout) 
-    and uninstall_tools|bool == false
+#- name: Download kubectl checksum
+#  get_url:
+#    url: "https://dl.k8s.io/release/v{{ kubectl_version }}/bin/{{ k8s_platform }}/{{ k8s_arch }}/kubectl.sha512"
+#    dest: /tmp/kubectl.sha512
+#    #set_fact: kubectl_checksum_binary= "{{ lookup('file', '/tmp/kubectl.sha256') }}"
+#  when: >
+#    (not kubectl_check.stat.exists or kubectl_version not in kubectl_existing_version.stdout)
+#    and uninstall_tools|bool == false
 
 - name: Download kubectl binary
   get_url:
@@ -46,6 +46,6 @@
     checksum: "{{ kubectl_checksum_binary }}"
     dest: /tmp
   when: >
-    (not kubectl_check.stat.exists or kubectl_version not in kubectl_existing_version.stdout) 
+    (not kubectl_check.stat.exists or kubectl_version not in kubectl_existing_version.stdout)
     and uninstall_tools|bool == false
   notify: copy kubectl binary

@@ -36,8 +36,8 @@ Using these variables the binaries can be upgraded or downgraded.
 
 
 ```yml
-    helm_bin_path: /usr/local/bin/helm
-    kubectl_bin_path: /usr/local/bin/kubectl
+helm_bin_path: /usr/local/bin/helm
+kubectl_bin_path: /usr/local/bin/kubectl
 ```
 
 The location where the helm/kubectl binary will be installed.
