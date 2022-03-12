@@ -38,5 +38,5 @@
     dest: /tmp
   when: >
     (not kubectl_check.stat.exists or kubectl_version not in kubectl_existing_version.stdout)
-    and uninstall_tools
+    and not uninstall_tools
   notify: copy kubectl binary

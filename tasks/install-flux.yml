@@ -1,0 +1,39 @@
+---
+- name: Extract flux path and register var
+  set_fact: flux_bin_path={{ item.path }}
+  with_items:
+    "{{ kubernetes_tools }}"
+  when: '"flux" in item.name'
+
+- name: Remove flux app
+  file:
+    path: "{{ flux_bin_path }}"
+    state: absent
+  when: uninstall_tools
+
+- name: Check if flux binary exists.
+  stat:
+    path: "{{ flux_bin_path }}"
+  register: flux_check
+
+- name: Check flux version.
+  command: "{{ flux_bin_path }} version"
+  failed_when: false
+  changed_when: false
+  register: flux_existing_version
+
+- name: Detect host architecture and set facts
+  set_fact: k8s_arch="amd64" kubectl_arch="amd64"
+  register: result
+  when: ansible_facts.architecture == "x86_64"
+
+- name: Download flux.
+  unarchive:
+    src: https://get.flux.sh/flux-{{ flux_version }}-{{ k8s_platform }}-{{ k8s_arch }}.tar.gz
+    dest: /tmp
+    remote_src: true
+    mode: 0755
+  notify: copy flux binary
+  when: >
+    (not flux_check.stat.exists or flux_version not in flux_existing_version.stdout)
+    and not uninstall_tools
