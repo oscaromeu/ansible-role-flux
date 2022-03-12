@@ -1,0 +1,34 @@
+---
+# This is an example playbook to execute Ansible tests.
+
+- name: Verify
+  hosts: all
+  gather_facts: false
+
+  vars_files:
+    - ../../defaults/main.yml
+
+  tasks:
+    - name: Check Helm version.
+      command: "{{ helm_bin_path }} version"
+      changed_when: false
+      register: helm_verify_version
+      when: uninstall_tools|bool == false
+
+    - name: Verify Helm's version is {{ helm_version }}.
+      assert:
+        that:
+          - helm_version in helm_verify_version.stdout
+      when: uninstall_tools|bool == false
+
+    - name: Check kubectl version.
+      command: "{{ kubectl_bin_path }} version --client"
+      changed_when: false
+      register: kubectl_verify_version
+      when: uninstall_tools|bool == false
+
+    - name: Verify Kubectl's version is {{ kubectl_version }}.
+      assert:
+        that:
+          - kubectl_version in kubectl_verify_version.stdout
+      when: uninstall_tools|bool == false

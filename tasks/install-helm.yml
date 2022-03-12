@@ -1,0 +1,40 @@
+---
+- name: Extract kubectl path and register var
+  set_fact: helm_bin_path={{ item.path }}
+  with_items:
+    "{{ kubernetes_tools }}"
+  when: '"helm" in item.name'
+
+- name: Remove helm app
+  file:
+    path: "{{ helm_bin_path }}"
+    state: absent
+  when: uninstall_tools|bool == true
+
+- name: Check if Helm binary exists.
+  stat:
+    path: "{{ helm_bin_path }}"
+  register: helm_check
+
+- name: Check Helm version.
+  command: "{{ helm_bin_path }} version"
+  failed_when: false
+  changed_when: false
+  register: helm_existing_version
+
+- name: Detect host architecture and set facts
+  set_fact: k8s_arch="amd64" kubectl_arch="amd64"
+  register: result
+  when: ansible_facts.architecture == "x86_64"
+
+- name: Download helm.
+  unarchive:
+    src: https://get.helm.sh/helm-{{ helm_version }}-{{ k8s_platform }}-{{ k8s_arch }}.tar.gz
+    dest: /tmp
+    remote_src: true
+    mode: 0755
+  notify: copy helm binary
+  when: >
+    not helm_check.stat.exists
+    or helm_version not in helm_existing_version.stdout
+    and not uninstall_tools|default(false)

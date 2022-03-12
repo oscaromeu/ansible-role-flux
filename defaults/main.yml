@@ -1,0 +1,29 @@
+---
+# Uninstall will make use of file module and remove binaries with absent state
+uninstall_tools: false
+
+# OS and hardware architectire
+k8s_platform: linux
+k8s_arch: arm64
+
+# Helm and kubectl versions to install
+# See available releases: https://github.com/helm/helm/releases/
+helm_version: 'v3.8.1'
+# See stable release in https://dl.k8s.io/release/stable.txt
+kubectl_version: "1.23.4"
+
+kubernetes_tools:
+  - name: helm
+    path: /usr/local/bin/helm
+  - name: kubectl
+    path: /usr/local/bin/kubectl
+
+# SHA256 checksum of the binary (see https://dl.k8s.io/release/v1.23.4/bin/linux/amd64/kubectl.sha256)
+kubectl_checksum_binary: "sha256:3f0398d4c8a5ff633e09abd0764ed3b9091fafbe3044970108794b02731c72d6"
+
+# Where to install "kubectl" binary
+kubectl_bin_directory: "/usr/local/bin"
+# Operating system on which "kubectl" should run on
+kubectl_platform: "linux"
+# Processor architecture "kubectl" should run on
+kubectl_arch: "amd64"

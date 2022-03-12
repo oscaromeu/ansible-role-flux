@@ -1,0 +1,19 @@
+---
+
+- name: copy kubectl binary
+  copy:
+    src: /tmp/kubectl
+    dest: "{{ kubectl_bin_directory }}/kubectl"
+    mode: 0755
+    owner: root
+    group: root
+    remote_src: true
+
+- name: copy helm binary
+  copy:
+    src: "/tmp/{{ k8s_platform }}-{{ k8s_arch }}/helm"
+    dest: "{{ helm_bin_path }}"
+    mode: 0755
+    remote_src: true
+  become: true
+
