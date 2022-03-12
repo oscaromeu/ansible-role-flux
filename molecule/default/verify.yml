@@ -13,13 +13,13 @@
       command: "{{ helm_bin_path }} version"
       changed_when: false
       register: helm_verify_version
-      when: uninstall_tools|bool == false
+      when: not uninstall_tools
 
     - name: Verify Helm's version is {{ helm_version }}.
       assert:
         that:
           - helm_version in helm_verify_version.stdout
-      when: uninstall_tools|bool == false
+      when: not uninstall_tools
 
     - name: Check kubectl version.
       command: "{{ kubectl_bin_path }} version --client"
@@ -31,4 +31,4 @@
       assert:
         that:
           - kubectl_version in kubectl_verify_version.stdout
-      when: uninstall_tools|bool == false
+      when: not uninstall_tools
