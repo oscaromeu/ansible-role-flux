@@ -75,6 +75,6 @@ MIT / BSD
 
 ## Author Information
 
-This role was created by Oscar Romeu based on [](https://github.com/ricsanfre/ansible-role-k8s_cli)
+This role was created by Oscar Romeu based on [ansible-role-k8s_cli](https://github.com/ricsanfre/ansible-role-k8s_cli)
  
 
