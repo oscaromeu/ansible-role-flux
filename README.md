@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/oscaromeu/ansible-role-k8s-tools/actions/workflows/ci.yml/badge.svg)](https://github.com/oscaromeu/ansible-role-k8s-tools/actions/workflows/ci.yml)
 
-This role installs the following k8s utilities:
+This role installs all or some of the following k8s utilities:
 - [Helm](https://helm.sh)
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
 - [Kustomize](https://kustomize.io/) <= TODO
