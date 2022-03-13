@@ -5,8 +5,8 @@
 This role installs all or some of the following k8s utilities:
 - [Helm](https://helm.sh)
 - [Kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/)
+- [Flux V2](https://fluxcd.io/docs/cmd/)
 - [Kustomize](https://kustomize.io/) <= TODO
-- [Flux V2](https://fluxcd.io/docs/cmd/) <= TODO
 - [K3d](https://k3d.io/v5.3.0/) <= TODO
 
 ## Requirements
@@ -25,7 +25,7 @@ If set to true it will only remove the installed cli's. Use with `--skip-tags` t
 
 ```yml
 k8s_platform: linux
-k8s_arch: amd64
+k8s_arch: arm64
 ```
 
 By default the platform is `linux` and the `architecture` is `arm64`. These variables are checked and configured at runtime by the role so its not necessary to adjust them.
@@ -33,6 +33,7 @@ By default the platform is `linux` and the `architecture` is `arm64`. These vari
 ```yml
 helm_version: 'v3.2.1'
 kubectl_version: "1.21.2"
+flux_version: "0.27.3"
 ```
 
 Using these variables the binaries can be upgraded or downgraded. 
@@ -41,6 +42,7 @@ Using these variables the binaries can be upgraded or downgraded.
 ```yml
 helm_bin_path: /usr/local/bin/helm
 kubectl_bin_path: /usr/local/bin/kubectl
+flux_bin_path: /usr/local/bin/flux
 ```
 
 The location where the helm/kubectl binary will be installed.

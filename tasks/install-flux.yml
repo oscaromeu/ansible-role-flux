@@ -27,12 +27,55 @@
   register: result
   when: ansible_facts.architecture == "x86_64"
 
-- name: Download flux binary
+- name: Download flux hash from Github URL
   get_url:
-    url: "https://dl.k8s.io/release/v{{ kubectl_version }}/bin/{{ k8s_platform }}/{{ k8s_arch }}/kubectl"
-    checksum: "{{ kubectl_checksum_binary }}"
+    url: "https://github.com/fluxcd/flux2/releases/download/v{{ flux_version }}/flux_{{ flux_version }}_checksums.txt"
     dest: /tmp
   when: >
-    (not kubectl_check.stat.exists or kubectl_version not in kubectl_existing_version.stdout)
+    (not flux_check.stat.exists or flux_version not in flux_existing_version.stdout)
     and not uninstall_tools
-  notify: copy kubectl binary
+
+- name: Compute sha256 sum
+  shell: >
+    set -o pipefail && \
+    cat /tmp/flux_{{ flux_version }}_checksums.txt| grep flux_0.27.3_linux_amd64.tar.gz | cut -f 1 -d ' '
+  changed_when: false
+  args:
+    executable: /bin/bash
+  register: sha256
+  when: >
+    (not flux_check.stat.exists or flux_version not in flux_existing_version.stdout)
+    and not uninstall_tools
+
+- name: Set fact flux checksum binary result
+  set_fact: "flux_checksum_binary={{ sha256.stdout }}"
+  when: >
+    (not flux_check.stat.exists or flux_version not in flux_existing_version.stdout)
+    and not uninstall_tools
+
+- name: Show extracted checksum
+  debug: msg="{{ flux_checksum_binary }}"
+  failed_when: false
+  when: >
+    (not flux_check.stat.exists or flux_version not in flux_existing_version.stdout)
+    and not uninstall_tools
+
+- name: Download flux file to unarchive
+  get_url:
+    url: "https://github.com/fluxcd/flux2/releases/download/v{{ flux_version }}/flux_{{ flux_version }}_{{ k8s_platform }}_{{ k8s_arch }}.tar.gz"
+    checksum: "sha256:{{ flux_checksum_binary }}"
+    dest: /tmp
+  when: >
+    (not flux_check.stat.exists or flux_version not in flux_existing_version.stdout)
+    and not uninstall_tools
+
+- name: Unarchive flux binary
+  unarchive:
+    src: /tmp/flux_{{ flux_version }}_{{ k8s_platform }}_{{ k8s_arch }}.tar.gz
+    dest: /tmp
+    remote_src: true
+    mode: 0755
+  notify: copy flux binary
+  when: >
+    (not flux_check.stat.exists or flux_version not in flux_existing_version.stdout)
+    and not uninstall_tools

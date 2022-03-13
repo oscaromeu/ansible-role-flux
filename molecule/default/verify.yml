@@ -6,6 +6,7 @@
   vars:
     kubectl_bin_path: /usr/local/bin/kubectl
     helm_bin_path: /usr/local/bin/helm
+    flux_bin_path: /usr/local/bin/flux
 
   vars_files:
     - ../../defaults/main.yml
@@ -30,3 +31,13 @@
       assert:
         that:
           - kubectl_version in kubectl_verify_version.stdout
+
+    - name: Check flux version.
+      command: "{{ flux_bin_path }} --version"
+      changed_when: false
+      register: flux_verify_version
+
+    - name: Verify flux's version is {{ flux_version }}.
+      assert:
+        that:
+          - flux_version in flux_verify_version.stdout
