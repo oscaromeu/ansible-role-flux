@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: k8s-tools
+  role_name: k8s_tools
   author: oscaromeu
   description: "Installation role for k8s tools: kubectl and kustomize"
 
