@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: k8s_tools
+  role_name: k8s-tools
   author: oscaromeu
   description: "Installation role for k8s tools: kubectl and kustomize"
 
@@ -9,16 +9,15 @@ galaxy_info:
   min_ansible_version: 2.11
 
   platforms:
-    - name: Ubuntu
+    - name: Debian
       versions:
-        - focal
-        - xenial
-        - bionic
+        - Debian 11 bullseye
+    - name: Archlinux
+      versions:
+        - rolling
 
   galaxy_tags:
-    - system
     - kubernetes
-    - kustomize
-    - kubectl
+    - command line interface
 
 dependencies: []
