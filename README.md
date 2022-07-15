@@ -11,7 +11,13 @@ This role installs all or some of the following k8s utilities:
 
 ## Requirements
 
-N/A
+```
+molecule 4.0.0 using python 3.10
+ansible:2.12.2
+docker:1.1.0 from molecule_docker requiring collections: community.docker>=1.9.1
+vagrant:1.0.0 from molecule_vagrant
+```
+
 
 ## Role Variables
 
