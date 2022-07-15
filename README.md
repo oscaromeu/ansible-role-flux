@@ -17,7 +17,7 @@ N/A
 
 Available variables are listed below, along with default values (see `defaults/main.yml`):
 
-```
+```yml
 uninstall_tools: true
 ```
 
