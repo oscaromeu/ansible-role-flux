@@ -31,6 +31,7 @@
   get_url:
     url: "https://github.com/fluxcd/flux2/releases/download/v{{ flux_version }}/flux_{{ flux_version }}_checksums.txt"
     dest: /tmp
+    mode: 0644
   when: >
     (not flux_check.stat.exists or flux_version not in flux_existing_version.stdout)
     and not uninstall_tools
@@ -65,6 +66,7 @@
     url: "https://github.com/fluxcd/flux2/releases/download/v{{ flux_version }}/flux_{{ flux_version }}_{{ k8s_platform }}_{{ k8s_arch }}.tar.gz"
     checksum: "sha256:{{ flux_checksum_binary }}"
     dest: /tmp
+    mode: 0644
   when: >
     (not flux_check.stat.exists or flux_version not in flux_existing_version.stdout)
     and not uninstall_tools

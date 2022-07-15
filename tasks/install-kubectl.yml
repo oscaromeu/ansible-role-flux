@@ -36,6 +36,7 @@
     url: "https://dl.k8s.io/release/v{{ kubectl_version }}/bin/{{ k8s_platform }}/{{ k8s_arch }}/kubectl"
     checksum: "{{ kubectl_checksum_binary }}"
     dest: /tmp
+    mode: 0644
   when: >
     (not kubectl_check.stat.exists or kubectl_version not in kubectl_existing_version.stdout)
     and not uninstall_tools
