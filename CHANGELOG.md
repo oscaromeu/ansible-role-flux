@@ -11,3 +11,7 @@ All notable changes to this project will be documented in this file
 
 - Change role to only install flux
 - Add specific task uninstall flux binary
+
+## 0.1.2
+
+- Upgrade Flux to v0.31.4
