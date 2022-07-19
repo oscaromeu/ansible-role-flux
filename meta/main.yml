@@ -1,8 +1,8 @@
 ---
 galaxy_info:
-  role_name: k8s_tools
+  role_name: flux
   author: oscaromeu
-  description: "Installation role for k8s tools: kubectl and kustomize"
+  description: "Installation role for flux v2"
 
   license: license (MIT)
 
@@ -19,5 +19,7 @@ galaxy_info:
   galaxy_tags:
     - kubernetes
     - cli
+    - gitops
+    - flux
 
 dependencies: []

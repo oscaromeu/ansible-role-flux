@@ -1,12 +1,9 @@
 ---
-- name: Install Helm
-  include_tasks: install-helm.yml
-  tags: helm
-
-- name: Install kubectl
-  include_tasks: install-kubectl.yml
-  tags: kubectl
-
 - name: Install flux v2
-  include_tasks: install-flux.yml
+  include_tasks: install.yml
+  tags: flux
+
+- name: Uninstall flux v2
+  include_tasks: uninstall.yml
+  when: uninstall
   tags: flux
