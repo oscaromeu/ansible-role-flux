@@ -6,7 +6,7 @@ uninstall: false
 flux_platform: linux
 
 # See https://github.com/fluxcd/flux2/releases
-flux_version: "0.27.3"
+flux_version: "0.31.4"
 
 # The location where the flux binary will be installed.
 flux_bin_path: /usr/local/bin/flux
